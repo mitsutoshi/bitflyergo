@@ -116,8 +116,12 @@ func (bf *Bitflyer) GetBoardState(productCode string) (*BoardState, error) {
 }
 
 // GetHealth gets heath of market.
-func (bf *Bitflyer) GetHealth() (*Health, error) {
-	res, err := bf.get(bf.getUrl(PathGetHealth), nil, bf.getDefaultHeaders())
+func (bf *Bitflyer) GetHealth(productCode string) (*Health, error) {
+	if productCode == "" {
+		productCode = ProductCodeBtcJpy
+	}
+	params := map[string]string{"product_code": productCode}
+	res, err := bf.get(bf.getUrl(PathGetHealth), params, bf.getDefaultHeaders())
 	if err != nil {
 		return nil, err
 	}

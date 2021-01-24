@@ -47,4 +47,16 @@ func TestGetBoardState(t *testing.T) {
 }
 
 func TestGetHealth(t *testing.T) {
+	health, err := bf.GetHealth(bitflyergo.ProductCodeFxBtcJpy)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if health.Status != bitflyergo.HealthNormal &&
+		health.Status != bitflyergo.HealthBusy &&
+		health.Status != bitflyergo.HealthVeryBusy &&
+		health.Status != bitflyergo.HealthSuperBusy &&
+		health.Status != bitflyergo.HealthNoOrder &&
+		health.Status != bitflyergo.HealthStop {
+		t.Fatal("Health is unexpected value.")
+	}
 }
