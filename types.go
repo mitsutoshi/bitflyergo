@@ -6,6 +6,18 @@ import (
 	"time"
 )
 
+// OpenDate is the date created position
+type OpenDate struct {
+	*time.Time
+}
+
+// UnmarshalJSON unmarchals json data.
+func (tt *OpenDate) UnmarshalJSON(data []byte) error {
+	t, err := time.Parse("\"2006-01-02T15:04:05.0000000Z\"", string(data))
+	*tt = OpenDate{&t}
+	return err
+}
+
 // TimeWithSecond is time with second as time.Time
 type TimeWithSecond struct {
 	*time.Time
@@ -141,17 +153,17 @@ type ChildOrder struct {
 
 // Position is own positions.
 type Position struct {
-	ProductCode         string         `json:"product_code"`          // product_code
-	Side                string         `json:"side"`                  // side
-	Price               float64        `json:"price"`                 // price
-	Size                float64        `json:"size"`                  // size
-	Commission          float64        `json:"commission"`            // commission
-	SwapPointAccumulate float64        `json:"swap_point_accumulate"` // swap_point_accumulate
-	RequireCollateral   float64        `json:"require_collateral"`    // require_collateral
-	OpenDate            TimeWithSecond `json:"open_date"`             // open_date
-	Leverage            float64        `json:"leverage"`              // leverage
-	Pnl                 float64        `json:"pnl"`                   // pnl
-	Std                 float64        `json:"sfd"`                   // sfd
+	ProductCode         string   `json:"product_code"`          // product_code
+	Side                string   `json:"side"`                  // side
+	Price               float64  `json:"price"`                 // price
+	Size                float64  `json:"size"`                  // size
+	Commission          float64  `json:"commission"`            // commission
+	SwapPointAccumulate float64  `json:"swap_point_accumulate"` // swap_point_accumulate
+	RequireCollateral   float64  `json:"require_collateral"`    // require_collateral
+	OpenDate            OpenDate `json:"open_date"`             // open_date
+	Leverage            float64  `json:"leverage"`              // leverage
+	Pnl                 float64  `json:"pnl"`                   // pnl
+	Std                 float64  `json:"sfd"`                   // sfd
 }
 
 // ApiError is lightning api error.

@@ -69,6 +69,7 @@ func (bf *Bitflyer) GetPositions(productCode string) ([]Position, error) {
 	params := map[string]string{"product_code": productCode}
 	res, err := bf.callApiWithRetry("GET", "/v"+bf.ApiVersion+PathGetPositions, params)
 	if err != nil {
+		Logger.Printf("[bitflyergo] Failed '%s' => %v\n", "/v"+bf.ApiVersion+PathGetPositions, string(res))
 		return nil, err
 	}
 	var positions []Position
