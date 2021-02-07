@@ -173,10 +173,11 @@ func (bf *Bitflyer) request(method string, url string, headers map[string]string
 
 	// return error if response status is not 200
 	if resp.StatusCode != http.StatusOK {
+		logf("[bitflyergo] Request unsuccessful: status=%v, messge=%v\n", resp.StatusCode, string(body))
 		apiErr := &ApiError{}
 		err = json.Unmarshal(body, apiErr)
 		if err != nil {
-			logf("[bitflyergo] catched error of api [%v]\n", apiErr)
+			logf("[bitflyergo] Cannot unmarshal with type of ApiError. [%v]\n", err)
 			return nil, err
 		}
 		return nil, apiErr
