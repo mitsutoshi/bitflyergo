@@ -126,8 +126,8 @@ type Collateral struct {
 // Balance is the balance of account.
 type Balance struct {
 	CurrencyCode string `json:"currency_code"` // currency_code
-	Amount       int64  `json:"amount"`        // amount
-	Available    int64  `json:"available"`     // available
+	Amount       float64  `json:"amount"`        // amount
+	Available    float64  `json:"available"`     // available
 }
 
 // ChildOrder is own child orders.
